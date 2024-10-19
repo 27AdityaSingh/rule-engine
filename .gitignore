@@ -1,0 +1,40 @@
+# Java
+*.class
+*.jar
+*.war
+*.log
+*.zip
+*.tar
+*.tgz
+*.7z
+*.rar
+
+# Maven
+target/
+*.iml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+
+# IDE specific
+.idea/
+*.swp
+*.swo
+*.class
+*.jar
+*.war
+
+# Eclipse
+.settings/
+.classpath
+.project
+.apt_generated/
+.bin/
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+

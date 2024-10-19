@@ -1,10 +1,12 @@
 
 package com.example.ruleengine.controller;
 
+import com.example.ruleengine.model.EvaluationRequest;
 import com.example.ruleengine.model.Rule;
 import com.example.ruleengine.model.UserData; // Import UserData model
 import com.example.ruleengine.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,8 +51,21 @@ public class RuleController {
 
     // Endpoint to evaluate a rule against user data
     @PostMapping("/evaluate")
-    public ResponseEntity<Boolean> evaluateRule(@RequestBody UserData userData, @RequestParam String ruleAst) {
-        boolean result = ruleService.evaluateRule(ruleAst, userData);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<Boolean> evaluateRule(@RequestBody EvaluationRequest evaluationRequest) {
+        try {
+            UserData userData = evaluationRequest.getUserData();
+            String ruleAst = evaluationRequest.getRuleAst();
+            
+            // Log received data
+            System.out.println("Received userData: " + userData);
+            System.out.println("Received ruleAst: " + ruleAst);
+
+            boolean result = ruleService.evaluateRule(ruleAst, userData);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            e.printStackTrace(); // Print stack trace for debugging
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
     }
+
 }

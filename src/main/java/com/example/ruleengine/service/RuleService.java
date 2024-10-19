@@ -1,3 +1,5 @@
+
+
 package com.example.ruleengine.service;
 
 import com.example.ruleengine.model.Rule;
@@ -55,32 +57,31 @@ public class RuleService {
         int experience = userData.getExperience();
 
         // Initialize conditions
-        boolean ageCondition = false;
-        boolean departmentCondition = false;
-        boolean salaryCondition = false;
-        boolean experienceCondition = false;
+        boolean result = true; // Start with a default of true
 
-        // Example evaluation logic based on ruleAst
-        // Assuming ruleAst is a simple expression, e.g., "age > 30 AND department = 'Sales'"
-        String[] conditions = ruleAst.split(" AND | OR "); // Split by AND/OR
-
-        for (String condition : conditions) {
-            condition = condition.trim(); // Clean up whitespace
-            if (condition.startsWith("age")) {
-                ageCondition = evaluateAgeCondition(condition, age);
-            } else if (condition.startsWith("department")) {
-                departmentCondition = evaluateDepartmentCondition(condition, department);
-            } else if (condition.startsWith("salary")) {
-                salaryCondition = evaluateSalaryCondition(condition, salary);
-            } else if (condition.startsWith("experience")) {
-                experienceCondition = evaluateExperienceCondition(condition, experience);
+        // Split the ruleAst into parts by handling AND/OR correctly
+        String[] orConditions = ruleAst.split(" OR "); // Split by OR
+        for (String orCondition : orConditions) {
+            boolean orResult = true; // Start each OR condition as true
+            String[] andConditions = orCondition.split(" AND "); // Split by AND
+            for (String condition : andConditions) {
+                condition = condition.trim(); // Clean up whitespace
+                boolean conditionResult = false; // Default for each condition
+                if (condition.startsWith("age")) {
+                    conditionResult = evaluateAgeCondition(condition, age);
+                } else if (condition.startsWith("department")) {
+                    conditionResult = evaluateDepartmentCondition(condition, department);
+                } else if (condition.startsWith("salary")) {
+                    conditionResult = evaluateSalaryCondition(condition, salary);
+                } else if (condition.startsWith("experience")) {
+                    conditionResult = evaluateExperienceCondition(condition, experience);
+                }
+                orResult = orResult && conditionResult; // Combine results for AND
             }
+            result = result && orResult; // Combine results for OR
         }
-
-        // Combine conditions based on AND/OR logic
-        boolean result = (ageCondition && departmentCondition) || (salaryCondition || experienceCondition);
         
-        return result; // Return the evaluation result
+        return result; // Return the final evaluation result
     }
 
     // Helper methods for condition evaluation
@@ -114,4 +115,3 @@ public class RuleService {
         return false;
     }
 }
-

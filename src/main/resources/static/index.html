@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rule Engine UI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Rule Engine</h1>
+    
+    <h2>Create a Rule</h2>
+    <form id="ruleForm">
+        <input type="text" id="ruleName" placeholder="Rule Name" required>
+        <input type="text" id="ruleAst" placeholder="Rule AST" required>
+        <button type="submit">Create Rule</button>
+    </form>
+    
+    <h2>Evaluate Rule</h2>
+    <form id="evaluateForm">
+        <textarea id="userData" placeholder="User Data JSON" required></textarea>
+        <input type="text" id="ruleToEvaluate" placeholder="Rule AST" required>
+        <button type="submit">Evaluate</button>
+    </form>
+
+    <h2>Results</h2>
+    <div id="results"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 # Rule Engine Application
 
+## Installation Steps in Separate File
+
 ## Overview
 
 The **Rule Engine** application is a flexible rule evaluation tool developed using **Spring Boot**. It evaluates user eligibility based on various attributes such as age, department, income, and experience. The application features dynamic rule creation and real-time evaluation through a RESTful API. Businesses can define, modify, and evaluate rules efficiently, making it easier to manage eligibility criteria for various programs or promotions.

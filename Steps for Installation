@@ -1,0 +1,131 @@
+Getting Started
+Prerequisites
+Java 11 or higher
+Maven
+MySQL Server (or use the Docker setup)
+Installation Steps
+Clone the Repository: Open a terminal and run the following command to clone the repository:
+bash 
+copy code:
+git clone https://github.com/27AdityaSingh/rule-engine.git
+cd rule-engine
+Create a MySQL Database: If you're not using Docker, create the database manually by logging into MySQL and running:
+
+sql
+Copy code:
+CREATE DATABASE rule_engine_db;
+Update application.properties: Modify the src/main/resources/application.properties file to include your MySQL database connection details:
+
+properties
+Copy code
+spring.datasource.url=jdbc:mysql://localhost:3306/rule_engine_db
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+Build the Project: Use Maven to build the project. Run the following command in the terminal:
+
+bash
+Copy code:
+mvn clean install
+Run the Application: Start the Spring Boot application by running:
+
+bash
+Copy code:
+mvn spring-boot:run
+Access the Application: Open a web browser and navigate to http://localhost:8080/index.html to access the frontend of the application.
+
+User Actions in the Rule Engine Frontend
+Create New Rules
+
+Users can define new rules by entering a Rule Name and an Abstract Syntax Tree (AST) representation in the provided form.
+The rule AST specifies the criteria (e.g., age > 30 AND department = 'Sales') for the rule, allowing for flexible rule creation.
+Evaluate User Data Against Rules
+
+Users can input user attributes, such as age, department, salary, and experience, in a JSON format.
+They can also specify a rule AST to evaluate against the provided user data.
+Upon submission, the application evaluates the criteria and returns a boolean value indicating whether the user meets the rule’s requirements.
+View Results
+
+After evaluating a rule, the results are displayed in the Results section.
+This immediate feedback allows users to quickly understand whether the user qualifies based on the specified rules.
+User-Friendly Interface
+
+The frontend features a clean and intuitive interface that simplifies the rule management process.
+Users can easily navigate through the forms to create rules and evaluate them without needing to interact directly with the backend.
+Feedback on Rule Evaluation
+
+Users receive instant feedback on the evaluation results, helping businesses make real-time decisions based on user data inputs.
+The results section clearly displays whether the criteria were met, enhancing the user experience.
+Potential Future Enhancements
+
+Future iterations of the frontend could include additional features such as visual representations of rules and their evaluations.
+Implementing a graphical interface for rule creation would allow users to build rules visually, enhancing accessibility for non-technical users.
+
+
+API Endpoints
+Create Rule
+POST /api/rules
+Request Body:
+json
+Copy code
+{ 
+  "ruleName": "Rule 1", 
+  "ruleAst": "((age > 30 AND department = 'Sales'))" 
+}
+Get All Rules
+GET /api/rules
+Get Rule by ID
+GET /api/rules/{id}
+Combine Rules
+POST /api/rules/combine
+Request Body:
+json
+Copy code
+[
+  { "ruleAst": "((age > 30 AND department = 'Sales'))" },
+  { "ruleAst": "((age < 25 AND department = 'Marketing'))" }
+]
+Evaluate Rule
+POST /api/rules/evaluate
+Request Body:
+json
+Copy code
+{
+  "age": 35,
+  "department": "Sales",
+  "salary": 60000,
+  "experience": 3
+}
+Query Parameter: ruleAst
+Sample Data
+You can use the following sample data to test the evaluation endpoint:
+
+json
+Copy code
+{
+  "age": 35,
+  "department": "Sales",
+  "salary": 60000,
+  "experience": 3
+}
+Usage
+You can use tools like Postman or cURL to interact with the API endpoints and test the functionality of the rule engine. Simply create a request in Postman using the relevant endpoint and provide the necessary request body or query parameters.
+
+Contributing
+Contributions are welcome! If you have suggestions or improvements, please fork the repository and submit a pull request with your changes.
+
+License
+This project is licensed under the MIT License.
+
+vbnet
+Copy code
+
+This README file covers the entire overview of your application along with a detailed setup guide for beginners. It explains everything clearly and provides the necessary information for anyone to understand and run the application successfully. Let me know if you need any more adjustments!
+
+
+
+
+
+
+
+
